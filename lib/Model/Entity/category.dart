@@ -14,7 +14,7 @@ class Category {
   Map<String, String> toMap() {
     // gửi lên sever
     return {
-      'id': id,
+      '_id': id,
       'nameCategory': nameCategory,
     };
   }

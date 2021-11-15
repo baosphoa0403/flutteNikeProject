@@ -25,29 +25,28 @@ class Demo extends StatelessWidget {
             )
           ],
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            FutureBuilder<List<Product>>(
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var a = snapshot.data;
-                  return ListView.builder(
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(snapshot.data![index].name.toString()),
-                        );
-                      });
-                }
-                if (snapshot.hasError) {
-                  return const Text("error");
-                }
-                return Text("no data");
-              },
-              future: productRepositoryImplement.getALLProduct(),
-            )
-          ],
-        ));
+        body: DefaultTextStyle(
+          style: Theme.of(context).textTheme.headline2!,
+          textAlign: TextAlign.center,
+          child: FutureBuilder<List<Product>>(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          //itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            Product product=snapshot.data![index];
+                            return new ListTile(
+                              title: Text(product.name.toString()),
+                            );
+                          });
+                    }
+                    if (snapshot.hasError) {
+                      return const Text("error");
+                    }
+                    return Text("no data");
+                  },
+                  future: productRepositoryImplement.getALLProduct(),
+                ),)
+        );
   }
 }
